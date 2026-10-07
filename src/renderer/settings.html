@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' http://localhost:* ws://localhost:*"
+    />
+    <title>Настройки</title>
+    <style>
+      html,
+      body {
+        background: #12141c;
+      }
+    </style>
+  </head>
+  <body class="panel settings-body">
+    <div class="panel-wrap">
+      <div class="field">
+        <label for="apiKey">Ключ Gemini</label>
+        <input id="apiKey" type="password" placeholder="Вставьте ключ" autocomplete="off" spellcheck="false" />
+        <small>Ключ шифруется средствами Windows (Electron safeStorage) и хранится только на этом компьютере.</small>
+      </div>
+
+      <div class="field">
+        <label for="model">Модель</label>
+        <input id="model" type="text" placeholder="gemini-2.5-flash" autocomplete="off" spellcheck="false" />
+      </div>
+
+      <div class="field">
+        <label for="characterName">Имя персонажа</label>
+        <input id="characterName" type="text" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="systemPrompt">Системный промпт</label>
+        <textarea id="systemPrompt" spellcheck="false"></textarea>
+        <small>Подстановка {name} заменяется на имя персонажа.</small>
+      </div>
+
+      <div class="field">
+        <label for="voiceProvider">Озвучка (голос)</label>
+        <select id="voiceProvider">
+          <option value="edge">Edge TTS — нейросетевой русский голос (по умолчанию)</option>
+          <option value="gemini">Gemini TTS — через ваш ключ Gemini</option>
+          <option value="system">Системный голос Windows (запасной)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="ttsVoice">Имя голоса</label>
+        <input id="ttsVoice" type="text" autocomplete="off" spellcheck="false" />
+        <small id="ttsVoiceHint"></small>
+      </div>
+
+      <div class="field">
+        <label for="ttsModel">Модель озвучки Gemini</label>
+        <input id="ttsModel" type="text" autocomplete="off" spellcheck="false" placeholder="gemini-2.5-flash-preview-tts" />
+        <small>Используется только для Gemini TTS. По умолчанию gemini-2.5-flash-preview-tts.</small>
+      </div>
+
+      <div class="field">
+        <label for="useRvc">Голос RVC</label>
+        <select id="useRvc">
+          <option value="off">Выключен — играю обычный TTS</option>
+          <option value="on">Включён — конвертирую голос моделью RVC</option>
+        </select>
+        <small id="rvcStatus">Состояние сервера RVC появится здесь.</small>
+      </div>
+
+      <div class="field">
+        <label for="rvcModel">Модель RVC (.pth)</label>
+        <input id="rvcModel" type="text" autocomplete="off" spellcheck="false" />
+      </div>
+
+      <div class="field">
+        <label for="rvcIndex">Индекс (.index)</label>
+        <input id="rvcIndex" type="text" autocomplete="off" spellcheck="false" />
+        <small>Индекс повышает похожесть голоса. Путь можно указывать от папки проекта.</small>
+      </div>
+
+      <div class="row">
+        <div class="field" style="flex: 1">
+          <label for="rvcPitch">Транспонирование, полутона</label>
+          <input id="rvcPitch" type="number" min="-24" max="24" step="1" value="0" />
+        </div>
+        <div class="field" style="flex: 1">
+          <label for="rvcIndexRate">Index rate</label>
+          <input id="rvcIndexRate" type="number" min="0" max="1" step="0.05" value="0.6" />
+        </div>
+        <div class="field" style="flex: 1">
+          <label for="rvcPort">Порт сервера</label>
+          <input id="rvcPort" type="number" min="1024" max="65535" step="1" value="5055" />
+        </div>
+      </div>
+      <small>
+        Если базовый голос TTS мужской, а модель RVC женская (или наоборот) — сдвиньте транспонирование
+        на +12 или −12 полутонов.
+      </small>
+
+      <div class="row">
+        <button id="rvcRestart" type="button">Перезапустить сервер RVC</button>
+        <span id="rvcError" class="error"></span>
+      </div>
+
+      <div class="field">
+        <label>Проверка голоса</label>
+        <div class="row">
+          <button id="testVoice" type="button">Проверить голос</button>
+          <button id="stopVoice" type="button">Остановить</button>
+        </div>
+        <small id="voiceResult">Сначала сохранит текущие поля, затем озвучит пробную фразу выбранным провайдером.</small>
+      </div>
+
+      <div class="field">
+        <label for="microphone">Микрофон</label>
+        <div class="row">
+          <select id="microphone"></select>
+          <button id="refreshMics" type="button">Обновить</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="hotkey">Горячая клавиша (push-to-talk)</label>
+        <input id="hotkey" type="text" readonly placeholder="CommandOrControl+Shift+Space" />
+        <small>Нажмите поле и введите сочетание, например Ctrl+Shift+Space.</small>
+      </div>
+
+      <div class="field">
+        <label>Проверка подключения</label>
+        <div class="row">
+          <button id="test" type="button">Проверить подключение</button>
+        </div>
+        <small id="testResult">Покажет, работает ли ключ и какие модели доступны (полезно при VPN и ошибке «модель недоступна»).</small>
+      </div>
+
+      <div class="row">
+        <button id="save" type="button">Сохранить</button>
+        <span id="saveStatus"></span>
+      </div>
+    </div>
+    <script type="module" src="/src/settings.ts"></script>
+  </body>
+</html>

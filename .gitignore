@@ -1,0 +1,25 @@
+# зависимости и сборка
+node_modules/
+out/
+dist/
+*.log
+.DS_Store
+
+# аватар пользователя (VRM ~21 МБ) — каждый кладёт свой в models/
+models/*.vrm
+models/*.vrm.meta
+
+# окружение RVC: весит гигабайты и собирается через rvc/setup.cmd
+rvc/venv/
+rvc/tmp/
+rvc/_src/
+rvc/logs/
+rvc/base_model/
+
+# голосовые модели RVC (.pth — pickle, .index) — личные файлы, не для репозитория
+rvc/models/*.pth
+rvc/models/*.index
+
+# локальный ярлык/иконка с чужим персонажем
+build/icon.ico
+build/icon-preview.png

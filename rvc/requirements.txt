@@ -1,0 +1,46 @@
+# RVC-окружение Сукуно (Python 3.11, Windows, CUDA 11.8)
+# Ставится в Sukuno/rvc/venv — глобально ничего не устанавливается.
+#
+# ВАЖНО: в этом venv pip закреплён на версии <24.1, потому что pip>=24.1
+# отказывается обрабатывать omegaconf 2.0.6 (кривые метаданные PyYAML>=5.1.*),
+# а fairseq 0.12.2 требует именно omegaconf<2.1.
+#   venv\python.exe -m pip install "pip==24.0"
+#
+# torch/torchaudio ставятся отдельной командой с индексом CUDA:
+#   venv\python.exe -m pip install torch==2.1.1+cu118 torchaudio==2.1.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+
+numpy==1.23.5
+scipy==1.9.3
+numba==0.57.1
+llvmlite==0.40.1
+librosa==0.10.1
+soundfile==0.12.1
+faiss-cpu==1.7.3
+praat-parselmouth==0.4.7
+pyworld==0.3.5
+av
+ffmpeg-python
+torchcrepe
+
+# FastAPI-сервер конвертации
+fastapi
+uvicorn
+python-multipart
+
+# зависимости fairseq 0.12.2
+# omegaconf==2.0.6 ставится ОТДЕЛЬНО старым pip (метаданные не читаются pip>=24.1):
+#   venv\python.exe -m pip install "pip<24.1"
+#   venv\python.exe -m pip install omegaconf==2.0.6
+#   venv\python.exe -m pip install --upgrade pip
+hydra-core==1.0.7
+antlr4-python3-runtime==4.8
+cffi
+regex
+sacrebleu==2.3.1
+bitarray
+tqdm
+requests
+loguru
+
+# setuptools>=81 больше не содержит pkg_resources, который нужен librosa 0.10
+setuptools==75.6.0

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' http://localhost:* ws://localhost:*"
+    />
+    <title>Чат</title>
+    <style>
+      html,
+      body {
+        background: #12141c;
+      }
+    </style>
+  </head>
+  <body class="panel">
+    <div class="panel-wrap">
+      <div id="log"></div>
+      <div id="state"></div>
+      <div class="row">
+        <input id="text" type="text" placeholder="Напишите сообщение…" autocomplete="off" />
+        <button id="send" type="button">Отправить</button>
+      </div>
+    </div>
+    <script type="module" src="/src/chat.ts"></script>
+  </body>
+</html>

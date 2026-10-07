@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob: data: http://localhost:* ws://localhost:*"
+    />
+    <title>Компаньон</title>
+    <style>
+      /* Transparent window: the document itself must not paint a background. */
+      html,
+      body {
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body class="avatar">
+    <div id="loading">
+      <div class="spinner"></div>
+      <div id="loadText">Загрузка модели…</div>
+      <div class="bar"><i id="loadBar"></i></div>
+    </div>
+
+    <div id="bubble"></div>
+
+    <div id="status"></div>
+
+    <div id="hud">
+      <button id="ptt" class="hud-btn" type="button" title="Разговор: нажмите, чтобы начать, и ещё раз, чтобы отправить">🎙</button>
+      <button id="danceBtn" class="hud-btn" type="button" title="Танец">🎵</button>
+      <button id="stopBtn" class="hud-btn" type="button" title="Остановить речь">⏹</button>
+    </div>
+
+    <script type="module" src="/src/avatar.ts"></script>
+  </body>
+</html>

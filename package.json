@@ -1,0 +1,29 @@
+{
+  "name": "sukuno-companion",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Voice AI companion with a 3D VRM avatar (Electron + TypeScript + Vite + Gemini)",
+  "main": "out/main/index.js",
+  "author": "Sukuno",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.web.json"
+  },
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "@pixiv/three-vrm": "^3.5.5",
+    "node-edge-tts": "^1.2.10",
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "@types/three": "^0.180.0",
+    "electron": "^44.5.1",
+    "electron-vite": "^5.0.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.3.7"
+  }
+}
